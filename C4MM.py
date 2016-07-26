@@ -1,63 +1,69 @@
 import sys
 import random
 from time import sleep
+
+choice=0
+win=0  
+board=[['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.']]
+
 def checkcolumn(c):
-    #checkcolumn(c) checks if the top cth column has atleast one empty spot
-    if board[0][c-1] == '.':
-        return True
-    return False    
-def checkwin(ab):
-    #checkwin(ab) prints which player wins if any and returns True if a player has won or returns False otherwise
-    if ab==0:
+    #checkcolumn(c) checks if the top of the cth column is empty
+    return (board[0][c-1] == '.')   
+
+def checkwin(XoO):
+    #checkwin(XoO) prints which player wins if any and returns True if a player has won or returns False otherwise
+    if XoO==0:
         t1='X'
     else:
         t1='O'
     for row in range(0,6):
         for column in range(0, 7):
             if column<=3 and t1==board[row][column] and t1==board[row][column+1] and t1==board[row][column+2] and t1==board[row][column+3]:
-                print "\nPlayer "+ str(ab+1) +" wins!\n"
+                print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
             if row<=2 and t1==board[row][column] and t1==board[row+1][column] and t1==board[row+2][column] and t1==board[row+3][column]:
-                print "\nPlayer "+ str(ab+1) +" wins!\n"
+                print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 print ""
                 return True
             if column>=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column-1] and t1==board[row+2][column-2] and t1==board[row+3][column-3]:
-                print "\nPlayer "+ str(ab+1) +" wins!\n"
+                print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
             if column<=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column+1] and t1==board[row+2][column+2] and t1==board[row+3][column+3]:
-                print "\nPlayer "+ str(ab+1) +" wins!\n"
+                print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
     return False 
-def checkwin1(boa):
+
+def checkwin1(b2):
     t1="X"
     t2="O"
     for row in range(0,6):
         for column in range(0, 7):
-            if column<=3 and t1==board[row][column] and t1==board[row][column+1] and t1==board[row][column+2] and t1==board[row][column+3]:
+            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1] and t1==b2[row][column+2] and t1==b2[row][column+3]:
                 return 100
-            if row<=2 and t1==board[row][column] and t1==board[row+1][column] and t1==board[row+2][column] and t1==board[row+3][column]:
+            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column] and t1==b2[row+2][column] and t1==b2[row+3][column]:
                 return 100
-            if column>=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column-1] and t1==board[row+2][column-2] and t1==board[row+3][column-3] :
+            if column>=3 and row<=2 and t1==b2[row][column] and t1==b2[row+1][column-1] and t1==b2[row+2][column-2] and t1==b2[row+3][column-3] :
                 return 100
-            if column<=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column+1] and t1==board[row+2][column+2] and t1==board[row+3][column+3] :
+            if column<=3 and row<=2 and t1==b2[row][column] and t1==b2[row+1][column+1] and t1==b2[row+2][column+2] and t1==b2[row+3][column+3] :
                 return 100
-            if column<=3 and t2==board[row][column] and t2==board[row][column+1] and t2==board[row][column+2] and t2==board[row][column+3]:
+            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1] and t2==b2[row][column+2] and t2==b2[row][column+3]:
                 return -100
-            if row<=2 and t2==board[row][column] and t2==board[row+1][column] and t2==board[row+2][column] and t2==board[row+3][column]:
+            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column] and t2==b2[row+2][column] and t2==b2[row+3][column]:
                 return -100
-            if column>=3 and row<=2 and t2==board[row][column] and t2==board[row+1][column-1] and t2==board[row+2][column-2] and t2==board[row+3][column-3] :
+            if column>=3 and row<=2 and t2==b2[row][column] and t2==b2[row+1][column-1] and t2==b2[row+2][column-2] and t2==b2[row+3][column-3] :
                 return -100
-            if column<=3 and row<=2 and t2==board[row][column] and t2==board[row+1][column+1] and t2==board[row+2][column+2] and t2==board[row+3][column+3] :
+            if column<=3 and row<=2 and t2==b2[row][column] and t2==b2[row+1][column+1] and t2==b2[row+2][column+2] and t2==b2[row+3][column+3] :
                 return -100
     return 0
+
 def FullBoard(bot):
     for i in range(0,7):
         if bot[0][i]==".":
             return False
     return True
     
-def minimax(baa,level,levelweight):
-    t42=checkwin1(baa)
+def minimax(board1,level,levelweight):
+    t42=checkwin1(board1)
     if(t42==100):
         return levelweight*100
     elif(t42==-100):
@@ -66,23 +72,23 @@ def minimax(baa,level,levelweight):
         #change the level to increase complexity
         return 0
     else:
-        if FullBoard(baa):
+        if FullBoard(board1):
             return 0
         else:
             a=[]
             b=[]
             for i in range(0,7):
-                if baa[0][i]==".":
+                if board1[0][i]==".":
                     for j in range(5,-1,-1):
-                        if baa[j][i]=='.':
+                        if board1[j][i]=='.':
                             if (level+choice)%2==1:
-                                baa[j][i]="O"
+                                board1[j][i]="O"
                             else:
-                                baa[j][i]="X"
-                            a.append(minimax(baa,level+1,levelweight/2))
+                                board1[j][i]="X"
+                            a.append(minimax(board1,level+1,levelweight/2))
                             if level==0:
                                 b.append(i)
-                            baa[j][i]="."
+                            board1[j][i]="."
                             break
             if(level==0 and choice==1): 
                 c=b[0]
@@ -105,9 +111,7 @@ def minimax(baa,level,levelweight):
                     return min(a)
                 else:
                     return max(a)   
-choice=0
-win=0  
-board=[['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.']]
+
 def callAi(t):
     #callAi(t) makes a move from a column 1-7 with consideration of winning
     c=minimax(board,0,64)
@@ -122,6 +126,7 @@ def callAi(t):
                 x[c]='X'
                 break  
     board.reverse()
+
 def GameOn():
     global choice
     #GameOn() is the mid portion of the game i.e filling up the board and displaying it
@@ -176,6 +181,7 @@ def GameOn():
                 print ""
             break
         t=t+1;
+
 def startGame() :
     #startGame() gives the pre-game instructions
     words = "Greetings Stranger(s)! "
@@ -200,5 +206,5 @@ def startGame() :
             sys.stdout.flush()
     print ""
     GameOn()
-GameOn()
-#startGame()
+#GameOn()
+startGame()
