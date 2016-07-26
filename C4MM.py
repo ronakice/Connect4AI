@@ -56,13 +56,13 @@ def FullBoard(bot):
             return False
     return True
     
-def minimax(baa,level):
+def minimax(baa,level,levelweight):
     t42=checkwin1(baa)
     if(t42==100):
-        return 100
+        return levelweight*100
     elif(t42==-100):
-        return -100
-    elif(level==6):
+        return  (-100/levelweight)
+    elif(level==5):
         #change the level to increase complexity
         return 0
     else:
@@ -79,7 +79,7 @@ def minimax(baa,level):
                                 baa[j][i]="O"
                             else:
                                 baa[j][i]="X"
-                            a.append(minimax(baa,level+1))
+                            a.append(minimax(baa,level+1,levelweight/2))
                             if level==0:
                                 b.append(i)
                             baa[j][i]="."
@@ -110,7 +110,7 @@ win=0
 board=[['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.']]
 def callAi(t):
     #callAi(t) makes a move from a column 1-7 with consideration of winning
-    c=minimax(board,0)
+    c=minimax(board,0,64)
     #print str(c)
     board.reverse()
     for x in board:
@@ -200,5 +200,5 @@ def startGame() :
             sys.stdout.flush()
     print ""
     GameOn()
-#GameOn()
-startGame()
+GameOn()
+#startGame()
