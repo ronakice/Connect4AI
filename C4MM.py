@@ -9,22 +9,23 @@ def checkcolumn(c):
 def checkwin(ab):
     #checkwin(ab) prints which player wins if any and returns True if a player has won or returns False otherwise
     if ab==0:
-        t1='O'
-    else:
         t1='X'
+    else:
+        t1='O'
     for row in range(0,6):
         for column in range(0, 7):
             if column<=3 and t1==board[row][column] and t1==board[row][column+1] and t1==board[row][column+2] and t1==board[row][column+3]:
-                print "Player "+ str(ab+1) +" wins!"
+                print "\nPlayer "+ str(ab+1) +" wins!\n"
                 return True
             if row<=2 and t1==board[row][column] and t1==board[row+1][column] and t1==board[row+2][column] and t1==board[row+3][column]:
-                print "Player "+ str(ab+1) +" wins!"
+                print "\nPlayer "+ str(ab+1) +" wins!\n"
+                print ""
                 return True
             if column>=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column-1] and t1==board[row+2][column-2] and t1==board[row+3][column-3]:
-                print "Player "+ str(ab+1) +" wins!"
+                print "\nPlayer "+ str(ab+1) +" wins!\n"
                 return True
             if column<=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column+1] and t1==board[row+2][column+2] and t1==board[row+3][column+3]:
-                print "Player "+ str(ab+1) +" wins!"
+                print "\nPlayer "+ str(ab+1) +" wins!\n"
                 return True
     return False 
 def checkwin1(boa):
@@ -56,11 +57,13 @@ def FullBoard(bot):
     return True
     
 def minimax(baa,level):
-    if(checkwin1(baa)==100):
+    t42=checkwin1(baa)
+    if(t42==100):
         return 100
-    elif(checkwin1(baa)==-100):
+    elif(t42==-100):
         return -100
-    elif(level==5):
+    elif(level==6):
+        #change the level to increase complexity
         return 0
     else:
         if FullBoard(baa):
@@ -72,7 +75,7 @@ def minimax(baa,level):
                 if baa[0][i]==".":
                     for j in range(5,-1,-1):
                         if baa[j][i]=='.':
-                            if level%2==0:
+                            if (level+choice)%2==1:
                                 baa[j][i]="O"
                             else:
                                 baa[j][i]="X"
@@ -85,7 +88,7 @@ def minimax(baa,level):
                 c=b[0]
                 t=a[0]
                 for i in range(0, len(a)):
-                    if a[i]<a[0]:
+                    if a[i]<t:
                         c=b[i]
                         t=a[i]
                 return c
@@ -93,7 +96,7 @@ def minimax(baa,level):
                 c=b[0]
                 t=a[0]
                 for i in range(0, len(a)):
-                    if a[i]>a[0]:
+                    if a[i]>t:
                         c=b[i]
                         t=a[i]
                 return c
@@ -106,9 +109,9 @@ choice=0
 win=0  
 board=[['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.']]
 def callAi(t):
-    #callAi(t) makes a move from a column 1-7 without much consideration of winning
+    #callAi(t) makes a move from a column 1-7 with consideration of winning
     c=minimax(board,0)
-    print str(c)
+    #print str(c)
     board.reverse()
     for x in board:
         if x[c]=='.':
