@@ -3,12 +3,12 @@ import random
 from time import sleep
 
 choice=0
-win=0  
-board=[['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.'],['.', '.', '.' ,'.', '.', '.' ,'.']]
+win=0
+board=[['.']*7 for _ in xrange(6)]
 
 def checkcolumn(c):
     #checkcolumn(c) checks if the top of the cth column is empty
-    return (board[0][c-1] == '.')   
+    return (board[0][c-1] == '.')
 
 def checkwin(XoO):
     #checkwin(XoO) prints which player wins if any and returns True if a player has won or returns False otherwise
@@ -31,7 +31,7 @@ def checkwin(XoO):
             if column<=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column+1] and t1==board[row+2][column+2] and t1==board[row+3][column+3]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
-    return False 
+    return False
 
 def checkwin1(b2):
     t1="X"
@@ -61,7 +61,7 @@ def FullBoard(bot):
         if bot[0][i]==".":
             return False
     return True
-    
+
 def minimax(board1,level,levelweight):
     t42=checkwin1(board1)
     if(t42==100):
@@ -90,7 +90,7 @@ def minimax(board1,level,levelweight):
                                 b.append(i)
                             board1[j][i]="."
                             break
-            if(level==0 and choice==1): 
+            if(level==0 and choice==1):
                 c=b[0]
                 t=a[0]
                 for i in range(0, len(a)):
@@ -110,7 +110,7 @@ def minimax(board1,level,levelweight):
                 if((level%2==0 and choice==1) or(level%2==1 and choice==2)):
                     return min(a)
                 else:
-                    return max(a)   
+                    return max(a)
 
 def callAi(t):
     #callAi(t) makes a move from a column 1-7 with consideration of winning
@@ -124,7 +124,7 @@ def callAi(t):
                 break
             else:
                 x[c]='X'
-                break  
+                break
     board.reverse()
 
 def GameOn():
@@ -146,14 +146,14 @@ def GameOn():
         if t==42:
             #If the board is Full and there is no winner
             print("TIE! Game TIED!")
-            break  
-        if t%2 == (choice-1):        
-            k=0 
+            break
+        if t%2 == (choice-1):
+            k=0
             while(k==0):
                 c=raw_input("Choose your column, mate!(1-7): ")
                 if c not in "0123456789" or c=="":
                     print "Choose an integer between 1-7!"
-            
+
                 else:
                     c=int(c)
                     if c<=0 or c>=8:
@@ -169,11 +169,11 @@ def GameOn():
                                     break
                                 else:
                                     x[c-1]='O'
-                                    break  
-                        board.reverse()                       
-                        k=1  
+                                    break
+                        board.reverse()
+                        k=1
         else:
-            callAi(t) 
+            callAi(t)
         if checkwin(t%2):
             for row in board:
                 for x in row:
@@ -183,6 +183,7 @@ def GameOn():
         t=t+1;
 
 def startGame() :
+    print(len(board))
     #startGame() gives the pre-game instructions
     words = "Greetings Stranger(s)! "
     #Experimental Typing
