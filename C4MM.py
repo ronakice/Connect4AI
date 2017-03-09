@@ -12,12 +12,9 @@ def checkcolumn(c):
 
 def checkwin(XoO):
     #checkwin(XoO) prints which player wins if any and returns True if a player has won or returns False otherwise
-    if XoO==0:
-        t1='X'
-    else:
-        t1='O'
-    for row in range(0,6):
-        for column in range(0, 7):
+    t1='X' if XoO==0 else 'O'
+    for row in range(6):
+        for column in range(7):
             if column<=3 and t1==board[row][column] and t1==board[row][column+1] and t1==board[row][column+2] and t1==board[row][column+3]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
