@@ -16,23 +16,19 @@ def checkwin(XoO):
     t1='X' if XoO==0 else 'O'
     for row in range(6):
         for column in range(7):
-            if column<=3 and t1==board[row][column] and t1==board[row][column+1]
-             and t1==board[row][column+2] and t1==board[row][column+3]:
+            if column<=3 and all([t1==board[row][column+i] for i in range(4)]):
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
-            if row<=2 and t1==board[row][column] and t1==board[row+1][column]
-             and t1==board[row+2][column] and t1==board[row+3][column]:
+            if row<=2 and all([t1==board[row+i][column] for i in range(4)]):
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 print ""
                 return True
-            if column>=3 and row<=2 and t1==board[row][column]
-             and t1==board[row+1][column-1] and t1==board[row+2][column-2]
-             and t1==board[row+3][column-3]:
+            if column>=3 and row<=2 and \
+             all([t1==board[row+i][column-i] for i in range(4)]):
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
-            if column<=3 and row<=2 and t1==board[row][column]
-             and t1==board[row+1][column+1] and t1==board[row+2][column+2]
-             and t1==board[row+3][column+3]:
+            if column<=3 and row<=2 and \
+             all([t1==board[row+i][column+i] for i in range(4)]):
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
     return False
@@ -42,32 +38,32 @@ def checkwin1(b2):
     t2="O"
     for row in range(0,6):
         for column in range(0, 7):
-            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1]
+            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1] \
              and t1==b2[row][column+2] and t1==b2[row][column+3]:
                 return 100
-            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column]
+            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column] \
              and t1==b2[row+2][column] and t1==b2[row+3][column]:
                 return 100
-            if column>=3 and row<=2 and t1==b2[row][column]
-             and t1==b2[row+1][column-1] and t1==b2[row+2][column-2]
+            if column>=3 and row<=2 and t1==b2[row][column] \
+             and t1==b2[row+1][column-1] and t1==b2[row+2][column-2] \
              and t1==b2[row+3][column-3] :
                 return 100
-            if column<=3 and row<=2 and t1==b2[row][column]
-             and t1==b2[row+1][column+1] and t1==b2[row+2][column+2]
+            if column<=3 and row<=2 and t1==b2[row][column] \
+             and t1==b2[row+1][column+1] and t1==b2[row+2][column+2] \
              and t1==b2[row+3][column+3] :
                 return 100
-            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1]
+            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1] \
              and t2==b2[row][column+2] and t2==b2[row][column+3]:
                 return -100
-            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column]
+            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column] \
              and t2==b2[row+2][column] and t2==b2[row+3][column]:
                 return -100
-            if column>=3 and row<=2 and t2==b2[row][column]
-             and t2==b2[row+1][column-1] and t2==b2[row+2][column-2]
+            if column>=3 and row<=2 and t2==b2[row][column] \
+             and t2==b2[row+1][column-1] and t2==b2[row+2][column-2] \
              and t2==b2[row+3][column-3] :
                 return -100
-            if column<=3 and row<=2 and t2==b2[row][column]
-             and t2==b2[row+1][column+1] and t2==b2[row+2][column+2]
+            if column<=3 and row<=2 and t2==b2[row][column] \
+             and t2==b2[row+1][column+1] and t2==b2[row+2][column+2] \
              and t2==b2[row+3][column+3] :
                 return -100
     return 0
@@ -145,7 +141,8 @@ def callAi(t):
 
 def GameOn():
     global choice
-    #GameOn() is the mid portion of the game i.e filling up the board and displaying it
+    #GameOn() is the mid portion of the game i.e filling up the board
+    #and displaying it
     t=0
     words= "Choose whether you would like to be player 1 or player 2(1 or 2): "
     for char in words:
@@ -208,7 +205,8 @@ def startGame() :
         sys.stdout.write(char)
         sys.stdout.flush()
     print ""
-    words = "Welcome to my Connect-4 Game! Do you know the rules to the game?(Y/N)"
+    words = "Welcome to my Connect-4 Game! Do you know the rules to the game?\
+    (Y/N)"
     #Experimental Typing
     for char in words:
         sleep(0.05)
@@ -216,7 +214,8 @@ def startGame() :
         sys.stdout.flush()
     c=raw_input("")
     if c=="N":
-        words = "The rules of this game are simple you connect 4 of X's or the O's, vertically,horizontally or diagonally to win the game."
+        words = "The rules of this game are simple you connect 4 of X's or \
+                the O's, vertically,horizontally or diagonally to win the game."
         for char in words:
             sleep(0.05)
             sys.stdout.write(char)
