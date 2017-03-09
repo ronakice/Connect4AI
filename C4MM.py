@@ -11,21 +11,28 @@ def checkcolumn(c):
     return (board[0][c-1] == '.')
 
 def checkwin(XoO):
-    #checkwin(XoO) prints which player wins if any and returns True if a player has won or returns False otherwise
+    #checkwin(XoO) prints which player wins if any and returns
+    #True if a player has won or returns False otherwise
     t1='X' if XoO==0 else 'O'
     for row in range(6):
         for column in range(7):
-            if column<=3 and t1==board[row][column] and t1==board[row][column+1] and t1==board[row][column+2] and t1==board[row][column+3]:
+            if column<=3 and t1==board[row][column] and t1==board[row][column+1]
+             and t1==board[row][column+2] and t1==board[row][column+3]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
-            if row<=2 and t1==board[row][column] and t1==board[row+1][column] and t1==board[row+2][column] and t1==board[row+3][column]:
+            if row<=2 and t1==board[row][column] and t1==board[row+1][column]
+             and t1==board[row+2][column] and t1==board[row+3][column]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 print ""
                 return True
-            if column>=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column-1] and t1==board[row+2][column-2] and t1==board[row+3][column-3]:
+            if column>=3 and row<=2 and t1==board[row][column]
+             and t1==board[row+1][column-1] and t1==board[row+2][column-2]
+             and t1==board[row+3][column-3]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
-            if column<=3 and row<=2 and t1==board[row][column] and t1==board[row+1][column+1] and t1==board[row+2][column+2] and t1==board[row+3][column+3]:
+            if column<=3 and row<=2 and t1==board[row][column]
+             and t1==board[row+1][column+1] and t1==board[row+2][column+2]
+             and t1==board[row+3][column+3]:
                 print "\nPlayer "+ str(XoO+1) +" wins!\n"
                 return True
     return False
@@ -35,21 +42,33 @@ def checkwin1(b2):
     t2="O"
     for row in range(0,6):
         for column in range(0, 7):
-            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1] and t1==b2[row][column+2] and t1==b2[row][column+3]:
+            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1]
+             and t1==b2[row][column+2] and t1==b2[row][column+3]:
                 return 100
-            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column] and t1==b2[row+2][column] and t1==b2[row+3][column]:
+            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column]
+             and t1==b2[row+2][column] and t1==b2[row+3][column]:
                 return 100
-            if column>=3 and row<=2 and t1==b2[row][column] and t1==b2[row+1][column-1] and t1==b2[row+2][column-2] and t1==b2[row+3][column-3] :
+            if column>=3 and row<=2 and t1==b2[row][column]
+             and t1==b2[row+1][column-1] and t1==b2[row+2][column-2]
+             and t1==b2[row+3][column-3] :
                 return 100
-            if column<=3 and row<=2 and t1==b2[row][column] and t1==b2[row+1][column+1] and t1==b2[row+2][column+2] and t1==b2[row+3][column+3] :
+            if column<=3 and row<=2 and t1==b2[row][column]
+             and t1==b2[row+1][column+1] and t1==b2[row+2][column+2]
+             and t1==b2[row+3][column+3] :
                 return 100
-            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1] and t2==b2[row][column+2] and t2==b2[row][column+3]:
+            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1]
+             and t2==b2[row][column+2] and t2==b2[row][column+3]:
                 return -100
-            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column] and t2==b2[row+2][column] and t2==b2[row+3][column]:
+            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column]
+             and t2==b2[row+2][column] and t2==b2[row+3][column]:
                 return -100
-            if column>=3 and row<=2 and t2==b2[row][column] and t2==b2[row+1][column-1] and t2==b2[row+2][column-2] and t2==b2[row+3][column-3] :
+            if column>=3 and row<=2 and t2==b2[row][column]
+             and t2==b2[row+1][column-1] and t2==b2[row+2][column-2]
+             and t2==b2[row+3][column-3] :
                 return -100
-            if column<=3 and row<=2 and t2==b2[row][column] and t2==b2[row+1][column+1] and t2==b2[row+2][column+2] and t2==b2[row+3][column+3] :
+            if column<=3 and row<=2 and t2==b2[row][column]
+             and t2==b2[row+1][column+1] and t2==b2[row+2][column+2]
+             and t2==b2[row+3][column+3] :
                 return -100
     return 0
 
