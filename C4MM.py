@@ -36,57 +36,60 @@ def checkwin(XoO):
 def checkwin1(b2):
     t1="X"
     t2="O"
-    for row in range(0,6):
-        for column in range(0, 7):
-            if column<=3 and t1==b2[row][column] and t1==b2[row][column+1] \
-             and t1==b2[row][column+2] and t1==b2[row][column+3]:
+    for row in range(6):
+        for column in range(7):
+            if column<=3 and all([t1==b2[row][column+i] for i in range(4)]):
                 return 100
-            if row<=2 and t1==b2[row][column] and t1==b2[row+1][column] \
-             and t1==b2[row+2][column] and t1==b2[row+3][column]:
+            if row<=2 and all([t1==b2[row+i][column] for i in range(4)]):
                 return 100
-            if column>=3 and row<=2 and t1==b2[row][column] \
-             and t1==b2[row+1][column-1] and t1==b2[row+2][column-2] \
-             and t1==b2[row+3][column-3] :
+            if column>=3 and row<=2 and \
+             all([t1==b2[row+i][column-i] for i in range(4)]):
                 return 100
-            if column<=3 and row<=2 and t1==b2[row][column] \
-             and t1==b2[row+1][column+1] and t1==b2[row+2][column+2] \
-             and t1==b2[row+3][column+3] :
+            if column<=3 and row<=2 and \
+             all([t1==b2[row+i][column+i] for i in range(4)]):
                 return 100
-            if column<=3 and t2==b2[row][column] and t2==b2[row][column+1] \
-             and t2==b2[row][column+2] and t2==b2[row][column+3]:
+            if column<=3 and all([t2==b2[row][column+i] for i in range(4)]):
                 return -100
-            if row<=2 and t2==b2[row][column] and t2==b2[row+1][column] \
-             and t2==b2[row+2][column] and t2==b2[row+3][column]:
+            if row<=2 and all([t2==b2[row+i][column] for i in range(4)]):
                 return -100
-            if column>=3 and row<=2 and t2==b2[row][column] \
-             and t2==b2[row+1][column-1] and t2==b2[row+2][column-2] \
-             and t2==b2[row+3][column-3] :
+            if column>=3 and row<=2 and \
+             all([t2==b2[row+i][column-i] for i in range(4)]):
                 return -100
-            if column<=3 and row<=2 and t2==b2[row][column] \
-             and t2==b2[row+1][column+1] and t2==b2[row+2][column+2] \
-             and t2==b2[row+3][column+3] :
+            if column<=3 and row<=2 and \
+             all([t2==b2[row+i][column+i] for i in range(4)]):
                 return -100
     return 0
 
 def FullBoard(bot):
-    for i in range(0,7):
-        if bot[0][i]==".":
-            return False
-    return True
+    return ("." not in bot[0])
+
 
 def minimax(board1,level,levelweight):
+    #print("Level" + str(level))
+    #for row in board:
+        #for x in row:
+        #    sys.stdout.write(x+" ")
+        #print("")
     t42=checkwin1(board1)
     if(t42==100):
+        #print("+100")
+        #good to win as early as possible
         return levelweight*100
     elif(t42==-100):
-        return  (-100/levelweight)
+        #print("-100")
+        #good to lose as late as possible
+        return  (-100*levelweight)
     elif(level==5):
         #change the level to increase complexity
+        #print("End Reach")
         return 0
     else:
+        #print("HAHERE")
         if FullBoard(board1):
+            #print("JESUS")
             return 0
         else:
+            #print("MATH")
             a=[]
             b=[]
             for i in range(0,7):
@@ -99,11 +102,16 @@ def minimax(board1,level,levelweight):
                                 board1[j][i]="X"
                             a.append(minimax(board1,level+1,levelweight/2))
                             if level==0:
+                                #print(level)
+                                #print(a)
                                 b.append(i)
                             board1[j][i]="."
                             break
+            #print(a)
+            #print(b)
             if(level==0 and choice==1):
                 c=b[0]
+            #    print("YOOOO")
                 t=a[0]
                 for i in range(0, len(a)):
                     if a[i]<t:
@@ -127,10 +135,12 @@ def minimax(board1,level,levelweight):
 def callAi(t):
     #callAi(t) makes a move from a column 1-7 with consideration of winning
     c=minimax(board,0,64)
+    print(str(c))
     #print str(c)
     board.reverse()
     for x in board:
         if x[c]=='.':
+            #print("JOJO")
             if choice==1:
                 x[c]='O'
                 break
@@ -222,5 +232,5 @@ def startGame() :
             sys.stdout.flush()
     print ""
     GameOn()
-#GameOn()
-startGame()
+GameOn()
+#startGame()
